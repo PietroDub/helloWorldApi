@@ -13,6 +13,7 @@ namespace helloWorldApi.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<Appcontact> Appontacts { get; set; }
+        public DbSet<Quiz> Quizzes { get; set; }
 
 
 
@@ -21,8 +22,9 @@ namespace helloWorldApi.Data
             base.OnModelCreating(builder);
             builder.Entity<Appuser>().ToTable("users");
             builder.Entity<Course>().ToTable("courses");
-            builder.Entity<Course>().ToTable("sales");
-            builder.Entity<Course>().ToTable("appcontacts");
+            builder.Entity<Sale>().ToTable("sales");
+            builder.Entity<Appcontact>().ToTable("contacts");
+            builder.Entity<Quiz>().ToTable("quizzes");
         }
     }
 }

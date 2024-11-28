@@ -62,8 +62,8 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>( options =>
     options.SignIn.RequireConfirmedEmail = false;
     options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequiredLength = 4;
-    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 10;
+    options.Password.RequireUppercase = true;
 }).AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using helloWorldApi.Data;
 using helloWorldApi.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace helloWorldApi.Controllers
 {
@@ -58,6 +59,7 @@ namespace helloWorldApi.Controllers
 
         // PUT: api/Courses/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCourse(Guid id, Course course)
         {
@@ -89,6 +91,7 @@ namespace helloWorldApi.Controllers
 
         // POST: api/Courses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Course>> PostCourse(Course course)
         {
@@ -99,6 +102,7 @@ namespace helloWorldApi.Controllers
         }
 
         // DELETE: api/Courses/5
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCourse(Guid id)
         {

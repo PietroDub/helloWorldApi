@@ -9,9 +9,11 @@ using helloWorldApi.Data;
 using helloWorldApi.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace helloWorldApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SalesController : ControllerBase

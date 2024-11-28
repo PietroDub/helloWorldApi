@@ -7,54 +7,52 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using helloWorldApi.Data;
 using helloWorldApi.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace helloWorldApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AppusersController : ControllerBase
+    public class QuestionsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public AppusersController(ApplicationDbContext context)
+        public QuestionsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Appusers
+        // GET: api/Questions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Appuser>>> GetAppusers()
+        public async Task<ActionResult<IEnumerable<Question>>> GetQuestion()
         {
-            return await _context.Appusers.ToListAsync();
+            return await _context.Question.ToListAsync();
         }
 
-        // GET: api/Appusers/5
+        // GET: api/Questions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Appuser>> GetAppuser(Guid id)
+        public async Task<ActionResult<Question>> GetQuestion(Guid id)
         {
-            var appuser = await _context.Appusers.FindAsync(id);
+            var question = await _context.Question.FindAsync(id);
 
-            if (appuser == null)
+            if (question == null)
             {
                 return NotFound();
             }
 
-            return appuser;
+            return question;
         }
 
-        // PUT: api/Appusers/5
+        // PUT: api/Questions/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Authorize]
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAppuser(Guid id, Appuser appuser)
+        public async Task<IActionResult> PutQuestion(Guid id, Question question)
         {
-            if (id != appuser.AppuserId)
+            if (id != question.QuestionId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(appuser).State = EntityState.Modified;
+            _context.Entry(question).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +60,7 @@ namespace helloWorldApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AppuserExists(id))
+                if (!QuestionExists(id))
                 {
                     return NotFound();
                 }
@@ -75,38 +73,36 @@ namespace helloWorldApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Appusers
+        // POST: api/Questions
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Authorize]
         [HttpPost]
-        public async Task<ActionResult<Appuser>> PostAppuser(Appuser appuser)
+        public async Task<ActionResult<Question>> PostQuestion(Question question)
         {
-            _context.Appusers.Add(appuser);
+            _context.Question.Add(question);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAppuser", new { id = appuser.AppuserId }, appuser);
+            return CreatedAtAction("GetQuestion", new { id = question.QuestionId }, question);
         }
 
-        // DELETE: api/Appusers/5
-        [Authorize]
+        // DELETE: api/Questions/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAppuser(Guid id)
+        public async Task<IActionResult> DeleteQuestion(Guid id)
         {
-            var appuser = await _context.Appusers.FindAsync(id);
-            if (appuser == null)
+            var question = await _context.Question.FindAsync(id);
+            if (question == null)
             {
                 return NotFound();
             }
 
-            _context.Appusers.Remove(appuser);
+            _context.Question.Remove(question);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool AppuserExists(Guid id)
+        private bool QuestionExists(Guid id)
         {
-            return _context.Appusers.Any(e => e.AppuserId == id);
+            return _context.Question.Any(e => e.QuestionId == id);
         }
     }
 }

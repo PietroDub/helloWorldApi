@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using helloWorldApi.Data;
 
@@ -11,13 +12,15 @@ using helloWorldApi.Data;
 namespace helloWorldApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241018134003_quiz")]
+    partial class quiz
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.10")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -240,7 +243,7 @@ namespace helloWorldApi.Migrations
 
                     b.HasKey("AppcontactId");
 
-                    b.ToTable("contacts", (string)null);
+                    b.ToTable("Appontacts");
                 });
 
             modelBuilder.Entity("helloWorldApi.Models.Appuser", b =>
@@ -249,8 +252,13 @@ namespace helloWorldApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Level")
-                        .HasColumnType("int");
+                    b.Property<string>("NickName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -281,38 +289,7 @@ namespace helloWorldApi.Migrations
 
                     b.HasKey("CourseId");
 
-                    b.ToTable("courses", (string)null);
-                });
-
-            modelBuilder.Entity("helloWorldApi.Models.Quiz", b =>
-                {
-                    b.Property<Guid>("QuizId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Answear")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("AppuserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CourseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CourseName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Level")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Question")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("QuizId");
-
-                    b.ToTable("quizzes", (string)null);
+                    b.ToTable("appcontacts", (string)null);
                 });
 
             modelBuilder.Entity("helloWorldApi.Models.Sale", b =>
@@ -343,7 +320,7 @@ namespace helloWorldApi.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("sales", (string)null);
+                    b.ToTable("Sales");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
